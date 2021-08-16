@@ -16,10 +16,13 @@ const ProductComponent = ({ category_id, id, description, name }) => {
   });
 
   return (
-    <div>
-      <img src={"https://test2.sionic.ru/" + imageUrl}></img>
-      <span>{name}</span>
-      <p>{description}</p>
+    <div className="productContainer">
+      <div className="productItem">
+        <img src={"https://test2.sionic.ru/" + imageUrl}></img>
+        <span>{name}</span>
+        <p>{description}</p>
+        <button>Добавить в корзину</button>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import ProductComponent from "../components/ProductComponent";
+import Layout from "../components/Layout";
 
 const Home = () => {
   const [categories, setCategories] = useState(null);
@@ -32,14 +33,14 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Categoties From Server:</h1>
+    <Layout>
+      <h1 className="categoryTitle">Категории товаров</h1>
+      <div className="categoryContainer">
         {categories !== null &&
           categories.map((category, ind) => (
-            <span onClick={() => showCategory(category.id)} key={ind}>
+            <button onClick={() => showCategory(category.id)} key={ind}>
               {category.name}
-            </span>
+            </button>
           ))}
       </div>
 
@@ -52,7 +53,7 @@ const Home = () => {
             name={product.name}
           />
         ))}
-    </div>
+    </Layout>
   );
 };
 
