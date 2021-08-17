@@ -1,0 +1,9 @@
+import { ORM } from "redux-orm";
+import Product from "../orm/models";
+
+const orm = new ORM({
+  stateSelector: (state) => state.orm,
+});
+orm.register(Product);
+
+export default orm;

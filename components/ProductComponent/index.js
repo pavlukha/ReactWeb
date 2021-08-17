@@ -16,13 +16,15 @@ const ProductComponent = ({ category_id, id, description, name }) => {
   });
 
   return (
-    <div className="productContainer">
-      <div className="productItem">
-        <img src={"https://test2.sionic.ru/" + imageUrl}></img>
-        <span>{name}</span>
-        <p>{description}</p>
-        <button>Добавить в корзину</button>
-      </div>
+    <div className="productItem">
+      <img src={"https://test2.sionic.ru/" + imageUrl}></img>
+      <span>{name}</span>
+      <textarea value={description} rows={5} readOnly className="textarea" />
+      <h1>от 350 000 ₽</h1>
+      <h2>
+        <s>450 500 ₽</s> -10%
+      </h2>
+      <button>Добавить в корзину</button>
     </div>
   );
 };
