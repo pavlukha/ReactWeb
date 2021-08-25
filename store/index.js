@@ -1,16 +1,14 @@
 import { createStore, combineReducers } from "redux";
 import { createReducer } from "redux-orm";
-import { orm } from "../orm/index";
+
+import orm from "../orm/index";
 
 const initialState = {};
 
-const holdingReducer = createReducer(orm);
-
 const rootReducer = combineReducers({
-  // reducer,
-  // holdingReducer,
+  orm: createReducer(orm),
 });
 
-let store = createStore(rootReducer);
+const store = createStore(rootReducer);
 
 export { store, initialState };

@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import orm from "../orm";
-
-import Slider from "react-slick";
 
 import ProductComponent from "../components/ProductComponent";
 import Layout from "../components/Layout";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
+
 const Home = () => {
-  const [categories, setCategories] = useState(null);
-  const [products, setProducts] = useState(null);
-
-  const emptyDBState = orm.getEmptyState();
-
-  const settings = {
-    arrows: false,
-    dots: false,
-    infinite: false,
-    speed: 100,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-  };
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [range, setRange] = useState(15);
+  const [loading, setLoadingState] = useState(false);
 
   useEffect(() => {
     axios.get("https://test2.sionic.ru/api/Categories/").then((res) => {
@@ -29,13 +20,14 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    setLoadingState(true);
     axios
-      .get("https://test2.sionic.ru/api/Products?range=[0,15]")
+      .get(`https://test2.sionic.ru/api/Products?range=[0, ${range}]`)
       .then((res) => {
         setProducts(res.data);
-        console.log("DATA od Products: ", res.data);
+        setLoadingState(false);
       });
-  }, []);
+  }, [range]);
 
   const showCategory = (category) => {
     axios
@@ -51,17 +43,18 @@ const Home = () => {
     <Layout>
       <h1 className="categoryTitle">Категории товаров</h1>
       <div className="categoryContainer">
-        {/* <Slider {...settings}> */}
-        {categories !== null &&
-          categories.map((category, ind) => (
-            <div className="categoryItem">
-              {" "}
-              <button onClick={() => showCategory(category.id)} key={ind}>
-                {category.name}
-              </button>
-            </div>
-          ))}
-        {/* </Slider> */}
+        <Swiper spaceBetween={10} slidesPerView={8}>
+          {categories !== null &&
+            categories.map((category, ind) => (
+              <SwiperSlide>
+                <div>
+                  <button onClick={() => showCategory(category.id)} key={ind}>
+                    {category.name}
+                  </button>
+                </div>
+              </SwiperSlide>
+            ))}
+        </Swiper>
       </div>
       <div className="productContainer">
         {products !== null &&
@@ -73,6 +66,16 @@ const Home = () => {
               name={product.name}
             />
           ))}
+        <div className="btnBox">
+          <button
+            disabled={loading}
+            onClick={() => {
+              setRange(range + 16);
+            }}
+          >
+            {loading ? "Подождите..." : "Показать больше товаров"}
+          </button>
+        </div>
       </div>
     </Layout>
   );

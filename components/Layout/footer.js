@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 import Image from "next/image";
 
@@ -6,7 +7,9 @@ const Footer = () => {
   return (
     <div id="footer">
       <div className="social">
-        <span>React</span>
+        <Link href="/">
+          <span>React</span>
+        </Link>
         <div style={{ marginRight: 30 }}>
           <h6>Присоединяйтесь к нам</h6>
           <div>

@@ -7,7 +7,7 @@ class Product extends Model {
 }
 Product.modelName = "Product";
 Product.fields = {
-  id: attr(), // non-relational field for any value; optional but highly recommended
+  id: attr(),
   name: attr(),
   category_id: attr(),
   description: attr(),
