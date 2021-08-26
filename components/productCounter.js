@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const ProductCounter = () => {
-  const [counter, setCounter] = useState(25);
+  const [counter, setCounter] = useState(1);
   return (
     <div className="counter">
       <span

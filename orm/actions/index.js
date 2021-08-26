@@ -2,12 +2,20 @@ import {
   TOGGLE_PRODUCT,
   DELETE_ALL_PRODUCTS,
   DELETE_PRODUCT,
+  CONFIRM_ORDER,
 } from "../constants/actionTypes";
 
-export const toggleProduct = (id, category_id, name, description, price) => {
+export const toggleProduct = (
+  id,
+  category_id,
+  name,
+  description,
+  price,
+  imageUrl
+) => {
   return {
     type: TOGGLE_PRODUCT,
-    payload: { id, category_id, name, description, price },
+    payload: { id, category_id, name, description, price, imageUrl },
   };
 };
 
@@ -22,5 +30,12 @@ export const deleteAllProduct = () => {
   return {
     type: DELETE_ALL_PRODUCTS,
     payload: {},
+  };
+};
+
+export const confirmOrder = ({ products }) => {
+  return {
+    type: CONFIRM_ORDER,
+    payload: { ...products },
   };
 };

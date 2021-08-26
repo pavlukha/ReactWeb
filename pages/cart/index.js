@@ -25,38 +25,34 @@ const Cart = ({ products }) => {
       }
     }
     setTotalPrice(newTotalPrice);
-  }, []);
+  }, [products]);
 
-  const decreaseTotal = (price) => {
-    let decreasedTotal = totalPrice - price;
-    setTotalPrice(decreasedTotal);
-  };
+  const cartList = products.map((product) => {
+    const discount = product.price + product.price * 0.1;
 
-  const cartList = products.map((product) => (
-    <div className="cart-item">
-      <img src="/img/productImg.png" />
-      <span>{product.name}</span>
-      <ProductCounter />
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <span style={{ fontSize: 16, fontWeight: 600, color: "#2D2D2F" }}>
-          от {product.price} ₽
-        </span>
-        <span style={{ fontSize: 14, fontWeight: 400, color: "#8D8D8E" }}>
-          <s>450 500 ₽</s>
-        </span>
+    return (
+      <div className="cart-item">
+        <img src={"https://test2.sionic.ru/" + product.imageUrl} />
+        <span>{product.name}</span>
+        <ProductCounter />
+        <div className="priceBox">
+          <span className="priceTitle">от {product.price} ₽</span>
+          <span className="discountTitle">
+            <s>{discount} ₽</s>
+          </span>
+        </div>
+        <FontAwesomeIcon
+          icon={faTrashAlt}
+          width={25}
+          height={25}
+          className="trashIcon"
+          onClick={() => {
+            dispatch(deleteProduct(product.id));
+          }}
+        />
       </div>
-      <FontAwesomeIcon
-        icon={faTrashAlt}
-        width={25}
-        height={25}
-        style={{ color: "#AEC2EA", cursor: "pointer" }}
-        onClick={() => {
-          decreaseTotal(product.price);
-          dispatch(deleteProduct(product.id));
-        }}
-      />
-    </div>
-  ));
+    );
+  });
 
   return (
     <Layout>
@@ -77,7 +73,6 @@ const Cart = ({ products }) => {
         >
           Очистить корзину
         </span>
-        {totalPrice}
       </div>
       <div className="cart-container">
         {products.length === 0 ? null : (
@@ -92,13 +87,17 @@ const Cart = ({ products }) => {
               borderRadius: 20,
             }}
           >
+            <img
+              className="logo"
+              src={"https://test2.sionic.ru/" + products[0].imageUrl}
+            />
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
               }}
             >
-              <span>Стоимость корзины:</span>
+              <span className="totalPriceTitle">Стоимость корзины:</span>
               <span>{totalPrice} ₽ </span>
             </div>
             <Link href="/order">

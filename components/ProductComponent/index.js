@@ -7,6 +7,7 @@ import { toggleProduct } from "../../orm/actions/index";
 const ProductComponent = ({ category_id, id, description, name }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [price, setPrice] = useState(0);
+  const discount = price + price * 0.1;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,11 +34,13 @@ const ProductComponent = ({ category_id, id, description, name }) => {
       <textarea className="textarea" value={description} rows={5} readOnly />
       <h1>от {price} ₽</h1>
       <h2>
-        <s>450 500 ₽</s> -10%
+        <s>{discount} ₽</s> -10%
       </h2>
       <button
         onClick={() =>
-          dispatch(toggleProduct(id, category_id, name, description, price))
+          dispatch(
+            toggleProduct(id, category_id, name, description, price, imageUrl)
+          )
         }
       >
         Добавить в корзину

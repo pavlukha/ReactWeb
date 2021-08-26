@@ -9,3 +9,12 @@ export const productListSelector = createSelector(orm, (session) =>
       return { ...ref };
     })
 );
+
+export const ordersListSelector = createSelector(orm, (session) =>
+  session.OrderHistory.all()
+    .toModelArray()
+    .map((productList) => {
+      const { ref } = productList;
+      return { ...ref };
+    })
+);
