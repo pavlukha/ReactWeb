@@ -60,6 +60,7 @@ const Home = () => {
         {products !== null &&
           products.map((product, ind) => (
             <ProductComponent
+              key={ind}
               category_id={product.category_id}
               id={product.id}
               description={product.description}

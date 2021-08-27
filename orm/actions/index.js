@@ -33,9 +33,15 @@ export const deleteAllProduct = () => {
   };
 };
 
-export const confirmOrder = ({ products }) => {
+export const confirmOrder = (
+  address,
+  name,
+  phone,
+  selectedDate,
+  selectedTime
+) => {
   return {
     type: CONFIRM_ORDER,
-    payload: { ...products },
+    payload: { address, name, phone, selectedDate, selectedTime },
   };
 };

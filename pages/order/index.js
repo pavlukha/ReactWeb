@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import Link from "next/link";
-import Layout from "../../components/Layout";
-import { confirmOrder, deleteAllProduct } from "../../orm/actions";
-import { productListSelector } from "../../orm/selectors";
+
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import "date-fns";
 
-const Order = ({ products }) => {
+import Layout from "../../components/Layout";
+
+import { confirmOrder, deleteAllProduct } from "../../orm/actions";
+import { productListSelector, ordersListSelector } from "../../orm/selectors";
+
+const Order = ({ products, orders }) => {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [selectedTime, setSelectedTime] = React.useState(new Date());
+  const [address, setAddress] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState(null);
+
   const dispatch = useDispatch();
   const itogo = totalPrice + 200;
-
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
 
   useEffect(() => {
     let newTotalPrice = 0;
@@ -47,25 +51,28 @@ const Order = ({ products }) => {
       <div className="order-container">
         <div className="leftColumn">
           <span className="deliveryTitles">Когда доставить?</span>
-          <div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
+                className="dateTimeInput"
                 margin="normal"
                 id="date-picker-dialog"
                 label="Выберите дату"
-                format="MM/dd/yyyy"
+                format="dd/MM/yyyy"
                 value={selectedDate}
-                onChange={handleDateChange}
+                onChange={(data) => setSelectedDate(data)}
                 KeyboardButtonProps={{
                   "aria-label": "change date",
                 }}
               />
               <KeyboardTimePicker
+                className="dateTimeInput"
                 margin="normal"
                 id="time-picker"
                 label="Выберите время"
-                value={selectedDate}
-                onChange={handleDateChange}
+                ampm={false}
+                value={selectedTime}
+                onChange={(data) => setSelectedTime(data)}
                 KeyboardButtonProps={{
                   "aria-label": "change time",
                 }}
@@ -75,12 +82,25 @@ const Order = ({ products }) => {
           <span className="deliveryTitles">Куда доставить?</span>
           <div className="address">
             <img src="/icons/address.png" />
-            <input placeholder="Выберите адрес доставки" />
+            <input
+              placeholder="Выберите адрес доставки"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
           </div>
           <span className="deliveryTitlesName">Имя</span>
-          <input className="deliveryInputName" />
+          <input
+            className="deliveryInputName"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <span className="deliveryTitlesName">Телефон</span>
-          <input className="deliveryInputName" />
+          <input
+            className="deliveryInputName"
+            type="number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
         </div>
         <div className="rightColumn">
           <div className="infoBox">
@@ -101,7 +121,19 @@ const Order = ({ products }) => {
           <div
             className="orderBtn"
             onClick={() => {
-              dispatch(confirmOrder(products));
+              dispatch(
+                confirmOrder(
+                  address,
+                  name,
+                  phone,
+                  selectedDate.toLocaleDateString("en-GB"),
+                  selectedTime.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })
+                )
+              );
               dispatch(deleteAllProduct(products));
             }}
           >
@@ -116,6 +148,7 @@ const Order = ({ products }) => {
 function mapStateToProps(state) {
   return {
     products: productListSelector(state),
+    orders: ordersListSelector(state),
   };
 }
 export default connect(mapStateToProps)(Order);

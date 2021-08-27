@@ -13,8 +13,8 @@ export const productListSelector = createSelector(orm, (session) =>
 export const ordersListSelector = createSelector(orm, (session) =>
   session.OrderHistory.all()
     .toModelArray()
-    .map((productList) => {
-      const { ref } = productList;
+    .map((history) => {
+      const { ref } = history;
       return { ...ref };
     })
 );

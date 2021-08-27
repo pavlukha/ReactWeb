@@ -1,15 +1,22 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 
 import Layout from "../../components/Layout";
-import { confirmOrder } from "../../orm/actions";
+import OrderSection from "../../components/OrderPanel/OrderSection";
+
 import { ordersListSelector } from "../../orm/selectors";
 
 const History = ({ orders }) => {
-  console.log("ORDERS in HISTORY PAGE: ", orders);
   return (
     <Layout>
-      <div>HUI</div>
+      <div className="historyContainer">
+        <span>История заказов</span>
+        <div className="historyOrderBx">
+          {orders.map((order, ind) => (
+            <OrderSection order={order} />
+          ))}
+        </div>
+      </div>
     </Layout>
   );
 };

@@ -48,6 +48,11 @@ const Header = () => (
     </div>
     <ShoppingCart />
     <Image src="/img/avatar.png" width={45} height={45} className="avatar" />
+    <Link href="/history">
+      <h4 style={{ marginLeft: 50, color: "#ff2d87", cursor: "pointer" }}>
+        История заказов
+      </h4>
+    </Link>
   </div>
 );
 
