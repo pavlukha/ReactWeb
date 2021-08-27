@@ -1,7 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+
+import { getCounter } from "../orm/actions/index";
 
 const ProductCounter = () => {
   const [counter, setCounter] = useState(1);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getCounter(counter));
+  // }, [counter]);
+
   return (
     <div className="counter">
       <span
@@ -30,4 +39,12 @@ const ProductCounter = () => {
   );
 };
 
-export default ProductCounter;
+// function mapStateToProps(state) {
+//   // console.log("STATE: ", state);
+
+//   return {
+//     counter: state.counter,
+//   };
+// }
+
+export default connect()(ProductCounter);

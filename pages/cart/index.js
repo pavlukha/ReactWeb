@@ -6,7 +6,7 @@ import Link from "next/link";
 import Layout from "../../components/Layout/index";
 import ProductCounter from "../../components/productCounter";
 
-import { deleteAllProduct, deleteProduct } from "../../orm/actions";
+import { deleteAllProduct, deleteProduct, getCounter } from "../../orm/actions";
 import { productListSelector } from "../../orm/selectors";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -114,6 +114,7 @@ const Cart = ({ products }) => {
                   fontWeight: 600,
                   cursor: "pointer",
                 }}
+                // onClick={() => dispatch(getCounter(counter))}
               >
                 Оформить
               </button>
@@ -128,8 +129,10 @@ const Cart = ({ products }) => {
 };
 
 function mapStateToProps(state) {
+  // console.log("STATE: ", state.orm);
   return {
     products: productListSelector(state),
+    // counter: state.orm,
   };
 }
 export default connect(mapStateToProps)(Cart);

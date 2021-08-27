@@ -14,9 +14,9 @@ import {
 import Layout from "../../components/Layout";
 
 import { confirmOrder, deleteAllProduct } from "../../orm/actions";
-import { productListSelector, ordersListSelector } from "../../orm/selectors";
+import { productListSelector } from "../../orm/selectors";
 
-const Order = ({ products, orders }) => {
+const Order = ({ products }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [selectedTime, setSelectedTime] = React.useState(new Date());
@@ -148,7 +148,6 @@ const Order = ({ products, orders }) => {
 function mapStateToProps(state) {
   return {
     products: productListSelector(state),
-    orders: ordersListSelector(state),
   };
 }
 export default connect(mapStateToProps)(Order);

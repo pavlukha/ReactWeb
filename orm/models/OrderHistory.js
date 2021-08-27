@@ -5,6 +5,7 @@ class OrderHistory extends Model {
   static reducer(action, OrderHistory, session) {
     const sessionState = session.state.ProductList.itemsById;
     const { payload, type } = action;
+
     switch (type) {
       case CONFIRM_ORDER:
         OrderHistory.create({

@@ -3,6 +3,8 @@ import {
   DELETE_ALL_PRODUCTS,
   DELETE_PRODUCT,
   CONFIRM_ORDER,
+  DELETE_ORDER_HISTORY,
+  GET_COUNTER,
 } from "../constants/actionTypes";
 
 export const toggleProduct = (
@@ -43,5 +45,19 @@ export const confirmOrder = (
   return {
     type: CONFIRM_ORDER,
     payload: { address, name, phone, selectedDate, selectedTime },
+  };
+};
+
+export const deleteOrderHistory = () => {
+  return {
+    type: DELETE_ORDER_HISTORY,
+    payload: {},
+  };
+};
+
+export const getCounter = (counter) => {
+  return {
+    type: GET_COUNTER,
+    payload: { counter },
   };
 };
