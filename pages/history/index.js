@@ -13,19 +13,11 @@ const History = ({ orders }) => {
   return (
     <Layout>
       <div className="historyContainer">
-        <div
-          style={{ display: "flex", marginBottom: 50, alignItems: "center" }}
-        >
+        <div className="historyUpbar">
           <span className="historyTitle">История заказов</span>
           <span
-            style={{
-              marginLeft: 30,
-              color: "#FF2D87",
-              fontSize: 16,
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
-            // onClick={() => dispatch(deleteOrderHistory(orders))}
+            className="clearOrderHistoryBtn"
+            onClick={() => dispatch(deleteOrderHistory(orders))}
           >
             Очистить историю заказов
           </span>
@@ -33,7 +25,7 @@ const History = ({ orders }) => {
         <div className="historyOrderBx">
           {orders.length === 0 && <p>История пуста</p>}
           {orders.map((order, ind) => (
-            <OrderSection order={order} />
+            <OrderSection key={ind} order={order} />
           ))}
         </div>
       </div>

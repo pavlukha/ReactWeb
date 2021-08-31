@@ -1,5 +1,5 @@
 import { Model, attr } from "redux-orm";
-import { CONFIRM_ORDER } from "../constants/actionTypes";
+import { CONFIRM_ORDER, DELETE_ORDER_HISTORY } from "../constants/actionTypes";
 
 class OrderHistory extends Model {
   static reducer(action, OrderHistory, session) {
@@ -15,7 +15,12 @@ class OrderHistory extends Model {
           phone: payload.phone,
           selectedDate: payload.selectedDate,
           selectedTime: payload.selectedTime,
+          totalPrice: payload.totalPrice,
+          totalItems: payload.totalItems,
         });
+        break;
+      case DELETE_ORDER_HISTORY:
+        OrderHistory.delete();
         break;
     }
     return session.state;
@@ -29,6 +34,8 @@ OrderHistory.fields = {
   phone: attr(),
   selectedDate: attr(),
   selectedTime: attr(),
+  totalPrice: attr(),
+  totalItems: attr(),
 };
 
 export default OrderHistory;

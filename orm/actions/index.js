@@ -4,7 +4,7 @@ import {
   DELETE_PRODUCT,
   CONFIRM_ORDER,
   DELETE_ORDER_HISTORY,
-  GET_COUNTER,
+  SET_QUANTITY,
 } from "../constants/actionTypes";
 
 export const toggleProduct = (
@@ -17,7 +17,15 @@ export const toggleProduct = (
 ) => {
   return {
     type: TOGGLE_PRODUCT,
-    payload: { id, category_id, name, description, price, imageUrl },
+    payload: {
+      id,
+      category_id,
+      name,
+      description,
+      price,
+      imageUrl,
+      counter: 1,
+    },
   };
 };
 
@@ -40,11 +48,21 @@ export const confirmOrder = (
   name,
   phone,
   selectedDate,
-  selectedTime
+  selectedTime,
+  totalPrice,
+  totalItems
 ) => {
   return {
     type: CONFIRM_ORDER,
-    payload: { address, name, phone, selectedDate, selectedTime },
+    payload: {
+      address,
+      name,
+      phone,
+      selectedDate,
+      selectedTime,
+      totalPrice,
+      totalItems,
+    },
   };
 };
 
@@ -55,9 +73,9 @@ export const deleteOrderHistory = () => {
   };
 };
 
-export const getCounter = (counter) => {
+export const setQuantity = (count, id) => {
   return {
-    type: GET_COUNTER,
-    payload: { counter },
+    type: SET_QUANTITY,
+    payload: { count, id },
   };
 };

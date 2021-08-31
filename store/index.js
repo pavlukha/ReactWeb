@@ -3,9 +3,7 @@ import { createReducer } from "redux-orm";
 
 import orm from "../orm/index";
 
-const initialState = {
-  counter: 0,
-};
+const initialState = {};
 
 const rootReducer = combineReducers({
   orm: createReducer(orm),

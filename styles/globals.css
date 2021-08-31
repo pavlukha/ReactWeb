@@ -247,6 +247,15 @@ p {
   width: 60px;
   height: 60px;
 }
+.cartUpbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  padding: 25px;
+  border: 1px solid #aec2ea;
+  border-radius: 20px;
+}
 #cart-page h1 {
   font-size: 80px;
   font-weight: 700;
@@ -302,6 +311,26 @@ p {
   color: #aec2ea;
   cursor: pointer;
 }
+.clearCartBtn,
+.clearOrderHistoryBtn {
+  margin-left: 30px;
+  color: #ff2d87;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cartBtn {
+  max-width: 214px;
+  height: 50px;
+  width: 100%;
+  border-width: 0;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #2967ff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
 /* ORDER PAGE */
 .order-container {
@@ -309,6 +338,11 @@ p {
   display: flex;
   justify-content: space-between;
   margin-bottom: 70px;
+}
+.orderMainTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d2d2f;
 }
 .leftColumn {
   max-width: 50%;
@@ -412,6 +446,11 @@ p {
   font-size: 20px;
   font-weight: 700;
   color: #2d2d2f;
+}
+.historyUpbar {
+  display: flex;
+  margin-bottom: 50px;
+  align-items: center;
 }
 .historyItem {
   display: flex;

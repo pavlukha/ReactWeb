@@ -3,6 +3,7 @@ import {
   TOGGLE_PRODUCT,
   DELETE_PRODUCT,
   DELETE_ALL_PRODUCTS,
+  SET_QUANTITY,
 } from "../constants/actionTypes";
 
 class ProductList extends Model {
@@ -24,6 +25,10 @@ class ProductList extends Model {
       case DELETE_ALL_PRODUCTS:
         ProductList.delete();
         break;
+      case SET_QUANTITY:
+        ProductList.withId(payload.id).update({
+          counter: payload.count,
+        });
     }
     return session.state;
   }
@@ -36,6 +41,7 @@ ProductList.fields = {
   category_id: attr(),
   description: attr(),
   price: attr(),
+  counter: attr(),
 };
 
 export default ProductList;

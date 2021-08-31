@@ -18,6 +18,7 @@ import { productListSelector } from "../../orm/selectors";
 
 const Order = ({ products }) => {
   const [totalPrice, setTotalPrice] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [selectedTime, setSelectedTime] = React.useState(new Date());
   const [address, setAddress] = React.useState("");
@@ -29,25 +30,20 @@ const Order = ({ products }) => {
 
   useEffect(() => {
     let newTotalPrice = 0;
+    let totalProducts = 0;
     if (products.length !== 0) {
       for (let i = 0; i <= products.length - 1; i++) {
-        newTotalPrice = newTotalPrice + products[i].price;
+        newTotalPrice = newTotalPrice + products[i].price * products[i].counter;
+        totalProducts = totalProducts + products[i].counter;
       }
     }
     setTotalPrice(newTotalPrice);
+    setTotalItems(totalProducts);
   }, []);
 
   return (
     <Layout>
-      <span
-        style={{
-          fontSize: 20,
-          fontWeight: 700,
-          color: "#2D2D2F",
-        }}
-      >
-        Доставка
-      </span>
+      <span className="orderMainTitle">Доставка</span>
       <div className="order-container">
         <div className="leftColumn">
           <span className="deliveryTitles">Когда доставить?</span>
@@ -131,7 +127,9 @@ const Order = ({ products }) => {
                     hour: "2-digit",
                     minute: "2-digit",
                     hour12: false,
-                  })
+                  }),
+                  totalPrice,
+                  totalItems
                 )
               );
               dispatch(deleteAllProduct(products));

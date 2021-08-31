@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
@@ -7,18 +7,6 @@ import OrderComponent from "./OrderItem";
 
 const OrderSection = ({ order }) => {
   const [isPressed, setIsPressed] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  let newTotalPrice = 0;
-
-  console.log("ORDER: ", order);
-
-  useEffect(() => {
-    Object.keys(order.orders).map((key, ind) => {
-      newTotalPrice = newTotalPrice + order.orders[key].price;
-    });
-    setTotalPrice(newTotalPrice);
-  }, [order]);
 
   return (
     <div className="historyPanel">
@@ -86,13 +74,13 @@ const OrderSection = ({ order }) => {
           }}
         >
           <span className="orderTitle">Кол-во товаров</span>
-          <span className="orderSubtitle">4 шт</span>
+          <span className="orderSubtitle">{order.totalItems} шт</span>
         </div>
         <div
           style={{ display: "flex", flexDirection: "column", marginRight: 30 }}
         >
           <span className="orderTitle">Стоимость заказа</span>
-          <span className="orderSubtitle">{totalPrice} ₽</span>
+          <span className="orderSubtitle">{order.totalPrice} ₽</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span className="orderTitle">Адрес доставки</span>
